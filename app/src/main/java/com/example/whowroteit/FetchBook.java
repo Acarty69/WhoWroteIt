@@ -11,12 +11,20 @@ import java.lang.ref.WeakReference;
 
 public class FetchBook extends AsyncTask<String, Void, String> {
 
-    private WeakReference<TextView> mTitleText;
-    private WeakReference<TextView> mAuthorText;
+    private WeakReference<TextView> mTitleText1;
+    private WeakReference<TextView> mAuthorText1;
+    private WeakReference<TextView> mTitleText2;
+    private WeakReference<TextView> mAuthorText2;
+    private WeakReference<TextView> mTitleText3;
+    private WeakReference<TextView> mAuthorText3;
 
-    FetchBook(TextView titleText, TextView authorText) {
-        this.mTitleText = new WeakReference<>(titleText);
-        this.mAuthorText = new WeakReference<>(authorText);
+    FetchBook(TextView titleText1, TextView authorText1, TextView titleText2, TextView authorText2, TextView titleText3, TextView authorText3) {
+        this.mTitleText1 = new WeakReference<>(titleText1);
+        this.mAuthorText1 = new WeakReference<>(authorText1);
+        this.mTitleText2 = new WeakReference<>(titleText2);
+        this.mAuthorText2 = new WeakReference<>(authorText2);
+        this.mTitleText3 = new WeakReference<>(titleText3);
+        this.mAuthorText3 = new WeakReference<>(authorText3);
     }
 
     @Override
@@ -28,35 +36,34 @@ public class FetchBook extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         try {
-            int i = 0;
-            String title = null;
-            String authors = null;
             JSONObject jsonObject = new JSONObject(s);
             JSONArray itemsArray = jsonObject.getJSONArray("items");
-            while (i < itemsArray.length() &&
-                    (authors == null && title == null)) {
+
+            for (int i = 0; i < Math.min(3, itemsArray.length()); i++) {
                 JSONObject book = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = book.getJSONObject("volumeInfo");
-                try {
-                    title = volumeInfo.getString("title");
-                    authors = volumeInfo.getString("authors");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                i++;
-            }
-            if (title != null && authors != null) {
-                mTitleText.get().setText(title);
-                mAuthorText.get().setText(authors);
-            }else {
-                mTitleText.get().setText(R.string.no_results);
-                mAuthorText.get().setText("");
-            }
+                String title = volumeInfo.optString("title");
+                String authors = volumeInfo.optString("authors");
 
-        }catch (Exception e) {
-            mTitleText.get().setText(R.string.no_results);
-            mAuthorText.get().setText("");
+                if (i == 0) {
+                    mTitleText1.get().setText(title);
+                    mAuthorText1.get().setText(authors);
+                } else if (i == 1) {
+                    mTitleText2.get().setText(title);
+                    mAuthorText2.get().setText(authors);
+                } else if (i == 2) {
+                    mTitleText3.get().setText(title);
+                    mAuthorText3.get().setText(authors);
+                }
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
+            mTitleText1.get().setText(R.string.no_results);
+            mAuthorText1.get().setText("");
+            mTitleText2.get().setText(R.string.no_results);
+            mAuthorText2.get().setText("");
+            mTitleText3.get().setText(R.string.no_results);
+            mAuthorText3.get().setText("");
         }
     }
 }
