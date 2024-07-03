@@ -61,24 +61,24 @@ public class MainActivity extends AppCompatActivity {
             mAuthorText1.setText("");
             mTitleText1.setText(R.string.loading);
             mAuthorText2.setText("");
-            mTitleText2.setText(R.string.loading);
+            mTitleText2.setText("");
             mAuthorText3.setText("");
-            mTitleText3.setText(R.string.loading);
+            mTitleText3.setText("");
         } else {
             if (queryString.length() == 0) {
                 mAuthorText1.setText("");
                 mTitleText1.setText(R.string.no_search_term);
                 mAuthorText2.setText("");
-                mTitleText2.setText(R.string.no_search_term);
+                mTitleText2.setText("");
                 mAuthorText3.setText("");
-                mTitleText3.setText(R.string.no_search_term);
+                mTitleText3.setText("");
             } else {
                 mAuthorText1.setText("");
                 mTitleText1.setText(R.string.no_network);
                 mAuthorText2.setText("");
-                mTitleText2.setText(R.string.no_network);
+                mTitleText2.setText("");
                 mAuthorText3.setText("");
-                mTitleText3.setText(R.string.no_network);
+                mTitleText3.setText("");
             }
         }
     }
