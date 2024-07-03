@@ -10,6 +10,5 @@ Who Wrote It est une application Android qui permet de rechercher des informatio
 ## Capture d'écran
 
 <img src="images/screen_app.png" alt="Capture d'écran de l'application" width="301">
-<img src="images/screen_app2.png" alt="Capture d'écran de l'application" width="301">
 <img src="images/screen_app3.png" alt="Capture d'écran de l'application" width="301">
 
